@@ -1,0 +1,7 @@
+platform :ios, '10.0'
+
+target 'FloatingTextInputExample' do
+  use_frameworks!
+
+  pod 'FloatingTextInput', :path => '../'
+end

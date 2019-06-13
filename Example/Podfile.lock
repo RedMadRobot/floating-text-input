@@ -1,0 +1,16 @@
+PODS:
+  - FloatingTextInput (0.2.2)
+
+DEPENDENCIES:
+  - FloatingTextInput (from `../`)
+
+EXTERNAL SOURCES:
+  FloatingTextInput:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  FloatingTextInput: c610368d62400651b8b162c01744ba0dd6605efa
+
+PODFILE CHECKSUM: e5140815d9ff85ab84948aea8b20abb672e4e936
+
+COCOAPODS: 1.7.1

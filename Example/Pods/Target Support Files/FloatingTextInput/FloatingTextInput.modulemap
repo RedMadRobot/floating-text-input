@@ -1,0 +1,6 @@
+framework module FloatingTextInput {
+  umbrella header "FloatingTextInput-umbrella.h"
+
+  export *
+  module * { export * }
+}
