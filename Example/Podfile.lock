@@ -2,20 +2,15 @@ PODS:
   - FloatingTextInput (0.2.3)
 
 DEPENDENCIES:
-  - FloatingTextInput (from `https://github.com/RedMadRobot/floating-text-input.git`)
+  - FloatingTextInput
 
-EXTERNAL SOURCES:
-  FloatingTextInput:
-    :git: https://github.com/RedMadRobot/floating-text-input.git
-
-CHECKOUT OPTIONS:
-  FloatingTextInput:
-    :commit: 45f8b3ddc3fff8037ded2629f51f73494f7c585c
-    :git: https://github.com/RedMadRobot/floating-text-input.git
+SPEC REPOS:
+  trunk:
+    - FloatingTextInput
 
 SPEC CHECKSUMS:
   FloatingTextInput: f4ff722b05505e61fbc40dbe59eaeab4b1a430c1
 
-PODFILE CHECKSUM: 7017bd2133ad7ad54d4078797f2fb44dc3e73556
+PODFILE CHECKSUM: 84707b86c07864cb5c5558cc891ecd6c001e2300
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.8.4
