@@ -34,24 +34,16 @@ open class TextView: UITextView {
     /// Первичная настройка после `init`.
     open func commonInit() {
         textContainer.lineFragmentPadding = 0
-        textBox.frame = bounds
         addSubview(textBox)
         observerNotifications()
         updateState(animated: false)
+        textBox.isHidden = true
     }
 
     // MARK: - UITextView
 
     open override var text: String! {
         didSet { updateState(animated: false) }
-    }
-
-    // MARK: - UIView
-
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        textBox.frame = bounds
-        textContainerInset = textBox.editingTextInsets
     }
 
     // MARK: - Private
