@@ -49,6 +49,12 @@ open class TextField: UITextField {
         get { return textBox.separatorView.backgroundColor }
         set { textBox.separatorView.backgroundColor = newValue }
     }
+    
+    /// Толщина полоски разделителя.
+    @IBInspectable open var separatorHeight: Int {
+        get { return Int(textBox.separatorHeight) }
+        set { textBox.separatorHeight = CGFloat(newValue) }
+    }
 
     /// Текст с детальным описанием.
     @IBInspectable open var detailText: String? {
@@ -65,7 +71,7 @@ open class TextField: UITextField {
         set { textBox.detailTextLabel.font = newValue }
     }
 
-    /// Цвет текст с детальным описанием.
+    /// Цвет текста с детальным описанием.
     @IBInspectable open var detailTextColor: UIColor? {
         get { return textBox.detailTextLabel.textColor }
         set { textBox.detailTextLabel.textColor = newValue }
@@ -89,8 +95,8 @@ open class TextField: UITextField {
             super.placeholder = nil
             self.placeholder = text
         }
-        textBox.frame = bounds
         addSubview(textBox)
+        setUpTextBoxConstraints()
         setupActions()
         updateState(animated: false)
         adjustsFontForContentSizeCategory = true
@@ -117,6 +123,15 @@ open class TextField: UITextField {
     }
 
     // MARK: - UITextField
+    
+    // если размер шрифта у placeholder и text в UITextField отличаются,
+    // то высота курсора, а из-за него и всего поля будет меняться.
+    // чтобы этого избежать, выставляем высоту курсора равной размеру шрифта placeholderLabel
+    open override func caretRect(for position: UITextPosition) -> CGRect {
+        var rect = super.caretRect(for: position)
+        rect.size.height = textBox.placeholderLabel.font.lineHeight
+        return rect
+    }
 
     open override var text: String? {
         didSet { updateState(animated: false) }
@@ -131,6 +146,11 @@ open class TextField: UITextField {
         let rect = super.editingRect(forBounds: bounds)
         return rect.inset(by: textBox.editingTextInsets).integral
     }
+    
+    open override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+        let rect = super.editingRect(forBounds: bounds)
+        return rect.inset(by: textBox.editingTextInsets).integral
+    }
 
     open override func textRect(forBounds bounds: CGRect) -> CGRect {
         let rect = super.textRect(forBounds: bounds)
@@ -142,17 +162,6 @@ open class TextField: UITextField {
     }
 
     // MARK: - UIView
-
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        textBox.frame = bounds
-    }
-
-    open override var intrinsicContentSize: CGSize {
-        let size = super.intrinsicContentSize
-        // Чтобы не скакала высота на один пиксель
-        return CGSize(width: size.width.rounded(), height: size.height.rounded())
-    }
 
     open override func layoutMarginsDidChange() {
         super.layoutMarginsDidChange()
@@ -175,5 +184,15 @@ open class TextField: UITextField {
         let state = TextInputState(hasText: hasText, firstResponder: isFirstResponder)
         rightView = self.rigthView(for: state)
         textBox.setState(state, animated: animated)
+    }
+    
+    private func setUpTextBoxConstraints() {
+        textBox.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            textBox.topAnchor.constraint(equalTo: topAnchor),
+            textBox.leadingAnchor.constraint(equalTo: leadingAnchor),
+            textBox.trailingAnchor.constraint(equalTo: trailingAnchor),
+            textBox.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
     }
 }

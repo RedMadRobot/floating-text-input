@@ -32,6 +32,12 @@ internal final class TextBox: UIView {
             placeholderLabel.font = placeholderFont
         }
     }
+    
+    var separatorHeight: CGFloat = 1 {
+        didSet {
+            separatorHeightConstraint?.constant = separatorHeight
+        }
+    }
 
     let titleLabel: UILabel = TextBoxLabel(fontSize: UIFont.smallSystemFontSize)
     let titlePlaceholderLabel: UILabel = TextBoxLabel()
@@ -46,6 +52,8 @@ internal final class TextBox: UIView {
     private let titleBottomSpace: CGFloat = 2
     private let separatorTopSpace: CGFloat = 6
     private let detailTextTopSpace: CGFloat = 2
+    
+    private var separatorHeightConstraint: NSLayoutConstraint?
 
     // MARK: - Init
 
@@ -61,7 +69,7 @@ internal final class TextBox: UIView {
 
     // MARK: - Internal
 
-    /// Отсутпы до фрейма в котором можно редактировать текст.
+    /// Отсутпы до фрейма, в котором можно редактировать текст.
     var editingTextInsets: UIEdgeInsets {
         let bottom = detailTextLabel.font.lineHeight + separatorView.frame.height
             + detailTextTopSpace + separatorTopSpace
@@ -108,11 +116,15 @@ internal final class TextBox: UIView {
             addSubview(subview)
         }
         setupConstraints()
-//        debug()
+       // debug()
     }
 
     private func setupConstraints() {
         layoutMargins = .zero
+        
+        let separatorHeight = separatorView.heightAnchor.constraint(equalToConstant: self.separatorHeight)
+        separatorHeightConstraint = separatorHeight
+        
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
@@ -126,14 +138,14 @@ internal final class TextBox: UIView {
             placeholderLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             placeholderLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
 
-            separatorView.heightAnchor.constraint(equalToConstant: separatorView.frame.height),
+            separatorView.topAnchor.constraint(equalTo: placeholderLabel.bottomAnchor, constant: 0),
+            separatorHeight,
             separatorView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             separatorView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
 
             detailTextLabel.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: detailTextTopSpace),
             detailTextLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            detailTextLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-            detailTextLabel.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
+            detailTextLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
         ])
     }
 
@@ -146,6 +158,12 @@ internal final class TextBox: UIView {
         placeholderLabel.backgroundColor = UIColor.yellow
         detailTextLabel.backgroundColor = UIColor.green
         separatorView.backgroundColor = UIColor.purple
+        
+        titleLabel.accessibilityLabel = "titleLabel"
+        titlePlaceholderLabel.accessibilityLabel = "titlePlaceholderLabel"
+        placeholderLabel.accessibilityLabel = "placeholderLabel"
+        separatorView.accessibilityLabel = "separatorView"
+        detailTextLabel.accessibilityLabel = "detailTextLabel"
     }
 
     private func stateDidUpdate() {
@@ -193,12 +211,12 @@ internal final class TextBox: UIView {
         }
     }
 
-    private func transform(from source: CGRect, to destionation: CGRect) -> CGAffineTransform {
-        let scaleX = source.width / destionation.width
-        let scaleY = source.height / destionation.height
+    private func transform(from source: CGRect, to destination: CGRect) -> CGAffineTransform {
+        let scaleX = source.width / destination.width
+        let scaleY = source.height / destination.height
 
-        let translationX = source.origin.x - destionation.origin.x - (destionation.width * (1.0 - scaleX) / 2)
-        let translationY = source.origin.y - destionation.origin.y - (destionation.height * (1.0 - scaleY) / 2)
+        let translationX = source.origin.x - destination.origin.x - (destination.width * (1.0 - scaleX) / 2)
+        let translationY = source.origin.y - destination.origin.y - (destination.height * (1.0 - scaleY) / 2)
 
         return CGAffineTransform(translationX: translationX, y: translationY).scaledBy(x: scaleX, y: scaleY)
     }
