@@ -6,7 +6,7 @@ target 'FloatingTextInputExample' do
   use_frameworks!
 
   # Pods for FloatingTextInputExample
-   pod 'FloatingTextInput'
+  pod 'FloatingTextInput', :path => '../'
 
 end
 
