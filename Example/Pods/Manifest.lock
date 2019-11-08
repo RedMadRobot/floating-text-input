@@ -1,16 +1,16 @@
 PODS:
-  - FloatingTextInput (0.2.2)
+  - FloatingTextInput (0.2.3)
 
 DEPENDENCIES:
-  - FloatingTextInput (from `../`)
+  - FloatingTextInput
 
-EXTERNAL SOURCES:
-  FloatingTextInput:
-    :path: "../"
+SPEC REPOS:
+  trunk:
+    - FloatingTextInput
 
 SPEC CHECKSUMS:
-  FloatingTextInput: c610368d62400651b8b162c01744ba0dd6605efa
+  FloatingTextInput: f4ff722b05505e61fbc40dbe59eaeab4b1a430c1
 
-PODFILE CHECKSUM: e5140815d9ff85ab84948aea8b20abb672e4e936
+PODFILE CHECKSUM: 84707b86c07864cb5c5558cc891ecd6c001e2300
 
-COCOAPODS: 1.7.1
+COCOAPODS: 1.8.4
