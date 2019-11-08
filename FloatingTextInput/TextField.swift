@@ -95,7 +95,6 @@ open class TextField: UITextField {
             super.placeholder = nil
             self.placeholder = text
         }
-        addSubview(textBox)
         setUpTextBoxConstraints()
         setupActions()
         updateState(animated: false)
@@ -121,17 +120,19 @@ open class TextField: UITextField {
     open func rigthView(for state: TextInputState) -> UIView? {
         return rightViews[state]
     }
-
-    // MARK: - UITextField
     
+    // MARK: - UITextInput
+
     // если размер шрифта у placeholder и text в UITextField отличаются,
     // то высота курсора, а из-за него и всего поля будет меняться.
     // чтобы этого избежать, выставляем высоту курсора равной размеру шрифта placeholderLabel
     open override func caretRect(for position: UITextPosition) -> CGRect {
         var rect = super.caretRect(for: position)
-        rect.size.height = textBox.placeholderLabel.font.lineHeight
+        rect.size.height = max(textBox.placeholderLabel.font.lineHeight, textBox.detailTextLabel.font.lineHeight)
         return rect
     }
+    
+     // MARK: - UITextField
 
     open override var text: String? {
         didSet { updateState(animated: false) }
@@ -187,6 +188,7 @@ open class TextField: UITextField {
     }
     
     private func setUpTextBoxConstraints() {
+        addSubview(textBox)
         textBox.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             textBox.topAnchor.constraint(equalTo: topAnchor),

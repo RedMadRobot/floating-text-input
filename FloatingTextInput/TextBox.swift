@@ -138,14 +138,14 @@ internal final class TextBox: UIView {
             placeholderLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             placeholderLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
 
-            separatorView.topAnchor.constraint(equalTo: placeholderLabel.bottomAnchor, constant: 0),
             separatorHeight,
             separatorView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             separatorView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
 
             detailTextLabel.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: detailTextTopSpace),
             detailTextLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            detailTextLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
+            detailTextLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            detailTextLabel.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
         ])
     }
 
