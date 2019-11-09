@@ -34,7 +34,6 @@ open class TextView: UITextView {
     /// Первичная настройка после `init`.
     open func commonInit() {
         textContainer.lineFragmentPadding = 0
-        textBox.frame = bounds
         addSubview(textBox)
         observerNotifications()
         updateState(animated: false)
@@ -45,7 +44,7 @@ open class TextView: UITextView {
     open override var text: String! {
         didSet { updateState(animated: false) }
     }
-
+    
     // MARK: - UIView
 
     open override func layoutSubviews() {
