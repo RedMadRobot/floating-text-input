@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'FloatingTextInput'
-  s.version          = '0.2.3'
+  s.version          = '0.2.4'
   s.summary          = 'Floating title for UITextField and UITextView'
   s.description      = <<-DESC
                        Additional view for UITextField and UITextView
