@@ -11,6 +11,8 @@ Floating title for UITextField and UITextView
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
+![Example Demo](https://media.giphy.com/media/Q59pZAO0TUg8BACy8e/giphy.gif)
+
 ## Requirements
 
 ## Installation
